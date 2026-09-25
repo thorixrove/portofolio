@@ -246,16 +246,32 @@ export const myProjects = [
   },
 ];
 
+// Ganti fungsi calculateSizes di src/constants/index.js dengan versi ini.
+// Perubahan utama: menambahkan targetScale per breakpoint,
+// dan targetPosition dibuat lebih ke tengah-bawah + lebih dekat ke kamera (z mendekati 0).
+
 export const calculateSizes = (isSmall, isMobile, isTablet) => {
   return {
     deskScale: isSmall ? 0.05 : isMobile ? 0.06 : 0.065,
     deskPosition: isMobile ? [0.5, -4.5, 0] : [0.25, -5.5, 0],
-    cubePosition: isSmall ? [4, -5, 0] : isMobile ? [5, -5, 0] : isTablet ? [5, -5, 0] : [9, -5.5, 0],
-    reactLogoPosition: isSmall ? [3, 4, 0] : isMobile ? [5, 4, 0] : isTablet ? [5, 4, 0] : [12, 3, 0],
-    ringPosition: isSmall ? [-5, 7, 0] : isMobile ? [-10, 10, 0] : isTablet ? [-12, 10, 0] : [-24, 10, 0],
-    targetPosition: isSmall ? [0, -2, -2] : isMobile ? [2, -3, -2] : isTablet ? [3, -2, -2] : [4, -3, -3],
+    // cube digeser lebih tinggi & lebih jauh ke kanan supaya tidak nabrak laci
+    // desk (sejak rotasi diluruskan, desk jadi lebih lebar ke arah kanan)
+    cubePosition: isSmall ? [4, -3, -2] : isMobile ? [4, -10, 1] : isTablet ? [10, -11, -2] : [15, -9, 0],
+    reactLogoPosition: isSmall ? [3, 9, 0] : isMobile ? [4, 6, 9] : isTablet ? [9, 4, 10] : [11, 4, 9],
+    
+    // ring didekatkan (x tidak sejauh sebelumnya) supaya kembali kelihatan,
+    // sebelumnya -10/-24 keluar dari frustum kamera sama sekali
+    ringPosition: isSmall ? [-3, 6, -1] : isMobile ? [-37, 35, -1] : isTablet ? [-50, 30, -2] : [-50, 30, 6],
+
+    // scale model komputer - diturunkan lagi dari percobaan sebelumnya (1.1/1.3 kebablasan, overflow ke kanan)
+    targetScale: isSmall ? 0.48 : isMobile ? 0.70 : isTablet ? 0.85 : 1,
+
+    // rotasi sekarang lurus (diatur di Target.jsx), jadi posisi cukup di tengah (x: 0)
+    // z didorong agak ke belakang supaya ukurannya pas, tidak kepotong tepi
+    targetPosition: isSmall? [0, -5, -2] : isMobile? [1, 6, 1]: isTablet? [0, -3.5, 0]: [0, -3, 0],
   };
 };
+
 
 export const workExperiences = [
   {

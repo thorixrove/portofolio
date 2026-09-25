@@ -6,7 +6,7 @@ import { Box3, Vector3 } from 'three';
 
 const Target = (props) => {
     const targetRef = useRef()
-    const { scene } = useGLTF('/models/model.glb')
+    const { scene } = useGLTF('/models/model_03.glb')
 
     const centeredScene = useMemo(() => {
         if (!scene) return null
@@ -20,10 +20,12 @@ const Target = (props) => {
         box.getSize(size)
 
         const maxDimension = Math.max(size.x, size.y, size.z) || 1
-        const desiredDimension = 3.2
+        const desiredDimension = 20
+        const scaleFactor = desiredDimension / maxDimension
 
-        clonedScene.position.sub(center)
-        clonedScene.scale.setScalar(desiredDimension / maxDimension)
+        clonedScene.rotation.y = -Math.PI / 1
+        clonedScene.scale.setScalar(scaleFactor)
+        clonedScene.position.copy(center).multiplyScalar(-scaleFactor)
 
         return clonedScene
     }, [scene])
@@ -45,9 +47,9 @@ const Target = (props) => {
         <group
             {...props}
             ref={targetRef}
-            position={props.position ?? [4, -3, -3]}
-            rotation={[0, Math.PI / 5, 0]}
-            scale={1}
+            position={props.position ?? [0, -1.2, 2]}
+            rotation={props.rotation ?? [0, 3, 0]}
+            scale={props.scale ?? 1}
         >
             <primitive object={centeredScene} />
         </group>

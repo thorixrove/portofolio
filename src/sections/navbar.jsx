@@ -21,8 +21,8 @@ const Navbar = () => {
     const closeMenu = () => setIsOpen(false)
 
     return (
-        <header  className="fixed top-0 left-0 right-0 z-50 bg-neutral-900/30">
-            <div className="max-w-7xl mx-auto">
+<header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-neutral-900/40 ">
+            <div className="w-full">
                 <div className="flex justify-between items-center py-5 mx-auto c-space">
                     <a href="/" className="text-neutral-400 font-bold text-xl hover:text-white transition-colors">
                         Thoriq Wajo
