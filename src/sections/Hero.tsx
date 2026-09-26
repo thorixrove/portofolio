@@ -31,7 +31,7 @@ const Hero = () => {
 
 
   return (
-    <section className="w-full" id="home">
+    <section className="min-h-screen w-full flex flex-col relative" id="home">
       <div className="w-full h-full absolute inset-0 overflow-hidden">
         <Canvas
           className="w-full h-full"
