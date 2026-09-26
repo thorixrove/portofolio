@@ -1,5 +1,5 @@
 {
-  "name": "thoriq_portofolio",
+  "name": "threejscc-portfolio",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -14,7 +14,7 @@
     "@gsap/react": "^2.1.1",
     "@react-three/drei": "^10.0.0",
     "@react-three/fiber": "^9.0.0",
-    "@types/three": "^0.170.0",
+    "@types/three": "^0.183.0",
     "gsap": "^3.12.5",
     "leva": "^0.10.0",
     "maath": "^0.10.8",
@@ -22,13 +22,14 @@
     "react-dom": "^19.0.0",
     "react-globe.gl": "^2.27.2",
     "react-responsive": "^10.0.0",
-    "three": "^0.170.0",
+    "three": "^0.183.0",
     "three-stdlib": "^2.32.2"
+  },
+  "overrides": {
+    "three": "$three"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
-    "@gltf-transform/core": "^4.5.0",
-    "@gltf-transform/functions": "^4.5.0",
     "@react-three/eslint-plugin": "^0.1.1",
     "@tailwindcss/vite": "^4.0.0",
     "@types/react": "^19.0.0",

@@ -15,6 +15,13 @@ const About = () => {
         }, 2000)
     }
 
+    const handleContactClick = () => {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
     return (
         <section className="c-space my-20" id="about">
             <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-cols-1 gap-5 h-full">
@@ -58,13 +65,13 @@ const About = () => {
                                 showGraticules
                                 globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
                                 bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-                                labelsData={[{ lat: 40, lng: -100, text: 'Rjieka, Croatia', color: 'white', size: 15 }]}
+                                labelsData={[{ lat: -0.86, lng: 134.06, text: 'Manokwari, Indonesia', color: 'white', size: 500}]}
                             />
                         </div>
                         <div>
                             <p className="grid-headtext">I’m very flexible with time zone communications & locations</p>
                             <p className="grid-subtext">I&apos;m based in Manokwari, Indonesia and open to remote work worldwide.</p>
-                            <Button name="Contact Me" isBeam containerClass="w-full mt-10" />
+                            <Button name="Contact Me" isBeam containerClass="w-full mt-10" onClick={handleContactClick} />
                         </div>
                     </div>
                 </div>
@@ -77,7 +84,7 @@ const About = () => {
                             <p className="grid-headtext">My Passion for Coding</p>
                             <p className="grid-subtext">
                                 I love solving problems and building things through code. Programming isn&apos;t just my
-                                profession—it&apos;s my passion. I enjoy exploring new technologies, and enhancing my skills.
+                                profession, it&apos;s my passion. I enjoy exploring new technologies, and enhancing my skills.
                             </p>
                         </div>
                     </div>

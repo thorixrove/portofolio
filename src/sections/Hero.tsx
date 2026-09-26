@@ -114,7 +114,12 @@ const Hero = () => {
 
         <div className="absolute bottom-7 left-0 right-0 w-full c-space pointer-events-none">
           <a href="#about" className="w-fit pointer-events-auto">
-            <Button name="Let's work together" isBeam containerClass="sm:w-fit w-full sm:min-w-96" />
+            <Button
+              name="Let's work together"
+              isBeam
+              onClick={() => {}}
+              containerClass="sm:w-fit w-full sm:min-w-96"
+            />
           </a>
         </div>
       </div>
