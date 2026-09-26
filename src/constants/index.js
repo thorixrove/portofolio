@@ -21,6 +21,8 @@ export const navLinks = [
   },
 ];
 
+
+// GANTI CLIENT DI BAGIAN SINI !!!
 export const clientReviews = [
   {
     id: 1,
@@ -56,6 +58,8 @@ export const clientReviews = [
   },
 ];
 
+
+// GANTI PROJECT DI BAGIAN SINI !!!
 export const myProjects = [
   {
     title: 'Podcastr - AI Podcast Platform',
@@ -94,6 +98,8 @@ export const myProjects = [
       },
     ],
   },
+
+
   {
     title: 'LiveDoc - Real-Time Google Docs Clone',
     desc: 'LiveDoc is a powerful collaborative app that elevates the capabilities of real-time document editing. As an enhanced version of Google Docs, It supports millions of collaborators simultaneously, ensuring that every change is captured instantly and accurately.',
@@ -131,6 +137,8 @@ export const myProjects = [
       },
     ],
   },
+
+
   {
     title: 'CarePulse - Health Management System',
     desc: 'An innovative healthcare platform designed to streamline essential medical processes. It simplifies patient registration, appointment scheduling, and medical record management, providing a seamless experience for both healthcare providers and patients.',
@@ -170,6 +178,8 @@ export const myProjects = [
       },
     ],
   },
+
+
   {
     title: 'Horizon - Online Banking Platform',
     desc: 'Horizon is a comprehensive online banking platform that offers users a centralized finance management dashboard. It allows users to connect multiple bank accounts, monitor real-time transactions, and seamlessly transfer money to other users.',
@@ -207,6 +217,8 @@ export const myProjects = [
       },
     ],
   },
+
+
   {
     title: 'Imaginify - AI Photo Manipulation App',
     desc: 'Imaginify is a groundbreaking Software-as-a-Service application that empowers users to create stunning photo manipulations using AI technology. With features like AI-driven image editing, a payments system, and a credits-based model.',
