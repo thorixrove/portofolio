@@ -28,13 +28,7 @@ const Hero = () => {
 
   const sizes = calculateSizes(isSmall, isMobile, isTablet)
 
-  const screenSettings = {
-    meshIndex: 4,
-    offsetX: 6,
-    offsetY: 0.9,
-    offsetZ: 20,
-    scale: 10,
-  }
+
 
   return (
     <section className="w-full" id="home">
@@ -52,12 +46,19 @@ const Hero = () => {
               <TargetModel
                 position={sizes.targetPosition}
                 scale={sizes.targetScale}
-                screenVideo="/textures/nono.mp4"
-                screenMeshIndex={screenSettings.meshIndex}
-                screenOffsetX={screenSettings.offsetX}
-                screenOffsetY={screenSettings.offsetY}
-                screenOffsetZ={screenSettings.offsetZ}
-                screenScale={screenSettings.scale}
+                screenVideo="/textures/nono_square.mp4"
+                screenMeshIndex={5}
+                screenOffsetX={5.3}
+                screenOffsetY={1}
+                screenOffsetZ={2}
+                screenWidth={6}
+                screenHeight={5}
+                screenCornerRadius={8}
+                screenCurvature={0.8}
+                screenBottomConcavity={0.001}
+                screenTopConcavity={0.3}
+                screenLeftConcavity={0.2}
+                screenRightConcavity={0.3}
               />
             </HeroCamera>
 

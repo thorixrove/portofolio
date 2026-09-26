@@ -1,18 +1,168 @@
 import { useGSAP } from '@gsap/react';
-import { Html, useGLTF } from '@react-three/drei';
+import { useGLTF, useTexture, useVideoTexture } from '@react-three/drei';
 import gsap from 'gsap';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Box3, Color, Quaternion, Vector3 } from 'three';
+import { Box3, CanvasTexture, PlaneGeometry, Color, Quaternion, Vector3 } from 'three';
+
+/**
+ * Bikin plane melengkung (cembung di tengah, rata di pinggir) mirip
+ * layar CRT — subdivided PlaneGeometry lalu tiap vertex digeser di
+ * sumbu Z sesuai jaraknya dari tengah (bentuk elips/lensa).
+ */
+function createCurvedPlaneGeometry(width, height, curvature, segments = 24, concavity = {}) {
+    const { top = 0, bottom = 0, left = 0, right = 0 } = concavity
+    const geometry = new PlaneGeometry(width, height, segments, segments)
+    const pos = geometry.attributes.position
+
+    for (let i = 0; i < pos.count; i++) {
+        const x = pos.getX(i)
+        const y = pos.getY(i)
+        const nx = x / (width / 2) // -1 (kiri) ... +1 (kanan)
+        const ny = y / (height / 2) // -1 (bawah) ... +1 (atas)
+        const d = nx * nx + ny * ny
+        const bulge = Math.max(0, 1 - d)
+
+        // Bagian tengah tetap cembung normal (bulge). Untuk tiap sisi (atas,
+        // bawah, kiri, kanan), kurangi/lesakkan ke belakang sesuai
+        // concavity-nya masing-masing — makin dekat ke tepi sisi itu makin
+        // cekung. Keempatnya independen jadi bisa dikombinasikan.
+        const bottomFactor = Math.max(0, -ny)
+        const topFactor = Math.max(0, ny)
+        const leftFactor = Math.max(0, -nx)
+        const rightFactor = Math.max(0, nx)
+
+        const dip = curvature * (
+            bottom * bottomFactor * bottomFactor +
+            top * topFactor * topFactor +
+            left * leftFactor * leftFactor +
+            right * rightFactor * rightFactor
+        )
+
+        pos.setZ(i, curvature * bulge - dip)
+    }
+
+    geometry.computeVertexNormals()
+    return geometry
+}
+
+/**
+ * Bikin canvas mask hitam-putih (rounded rect), dipakai sebagai
+ * alphaMap supaya sudut plane kelihatan membulat walau geometry
+ * aslinya persegi biasa.
+ */
+function createRoundedAlphaCanvas(width, height, radius) {
+    const canvasSize = 256
+    const canvas = document.createElement('canvas')
+    canvas.width = canvasSize
+    canvas.height = canvasSize
+    const ctx = canvas.getContext('2d')
+
+    const w = canvasSize
+    const h = canvasSize
+    const r = Math.min((radius / Math.max(width, height)) * canvasSize, w / 2, h / 2)
+
+    ctx.clearRect(0, 0, w, h)
+    ctx.fillStyle = '#ffffff'
+    ctx.beginPath()
+    ctx.moveTo(r, 0)
+    ctx.lineTo(w - r, 0)
+    ctx.quadraticCurveTo(w, 0, w, r)
+    ctx.lineTo(w, h - r)
+    ctx.quadraticCurveTo(w, h, w - r, h)
+    ctx.lineTo(r, h)
+    ctx.quadraticCurveTo(0, h, 0, h - r)
+    ctx.lineTo(0, r)
+    ctx.quadraticCurveTo(0, 0, r, 0)
+    ctx.closePath()
+    ctx.fill()
+
+    return canvas
+}
+
+const useRoundedAlphaMap = (width, height, radius) => {
+    return useMemo(() => {
+        const canvas = createRoundedAlphaCanvas(width, height, radius)
+        const texture = new CanvasTexture(canvas)
+        texture.needsUpdate = true
+        return texture
+    }, [width, height, radius])
+}
+
+const VideoPlane = ({ position, quaternion, width, height, radius, curvature, concavity, src }) => {
+    const texture = useVideoTexture(src, {
+        muted: true,
+        loop: true,
+        start: true,
+    })
+
+    const geometry = useMemo(
+        () => createCurvedPlaneGeometry(width, height, curvature, 24, concavity),
+        [width, height, curvature, concavity]
+    )
+    const alphaMap = useRoundedAlphaMap(width, height, radius)
+
+    return (
+        <mesh position={position} quaternion={quaternion} geometry={geometry}>
+            <meshBasicMaterial
+                map={texture}
+                alphaMap={alphaMap}
+                transparent
+                toneMapped={false}
+                side={2}
+            />
+        </mesh>
+    )
+}
+
+const PhotoPlane = ({ position, quaternion, width, height, radius, curvature, concavity, src }) => {
+    const texture = useTexture(src)
+
+    const geometry = useMemo(
+        () => createCurvedPlaneGeometry(width, height, curvature, 24, concavity),
+        [width, height, curvature, concavity]
+    )
+    const alphaMap = useRoundedAlphaMap(width, height, radius)
+
+    return (
+        <mesh position={position} quaternion={quaternion} geometry={geometry}>
+            <meshBasicMaterial
+                map={texture}
+                alphaMap={alphaMap}
+                transparent
+                toneMapped={false}
+                side={2}
+            />
+        </mesh>
+    )
+}
 
 /**
  * Props tambahan:
- * - screenImage      : path foto statis (pakai <img>)
- * - screenVideo      : path video (pakai <video>, diprioritaskan kalau keduanya diisi)
- * - screenMeshName   : cari mesh layar berdasarkan nama yang mengandung teks ini
- * - screenMeshIndex  : cari mesh layar berdasarkan index di console (0, 1, 2, dst)
- * - debugHighlight   : true = semua mesh diberi warna berbeda untuk identifikasi
- * - screenOffsetX/Y  : geser posisi overlay kalau belum pas (default 0)
- * - screenScale      : kalikan ukuran overlay kalau kurang/kelebihan besar (default 1)
+ * - screenImage        : path foto statis
+ * - screenVideo        : path video (diprioritaskan kalau keduanya diisi)
+ * - screenMeshName     : cari mesh layar berdasarkan nama yang mengandung teks ini
+ * - screenMeshIndex    : cari mesh layar berdasarkan index di console — HANYA
+ *                        dipakai untuk menentukan POSISI, bukan ukuran
+ * - debugHighlight     : true = semua mesh diberi warna berbeda untuk identifikasi
+ * - screenOffsetX/Y    : geser posisi plane kalau belum pas ke tengah layar (default 0)
+ * - screenOffsetZ      : majukan plane ke arah kamera (default 0.05)
+ * - screenWidth/Height : ukuran plane, diatur manual (default 4 x 3)
+ * - screenCornerRadius : radius sudut membulat (default 0.4)
+ * - screenCurvature    : seberapa cembung bagian tengah plane menonjol ke
+ *                        depan, dalam satuan model (default 0.3). Naikkan
+ *                        untuk efek cembung lebih terasa, 0 untuk flat.
+ * - screenBottomConcavity : seberapa cekung bagian BAWAH plane melesak ke
+ *                        belakang (default 0 = simetris/cembung biasa).
+ * - screenTopConcavity  : seberapa cekung bagian ATAS plane melesak ke
+ *                        belakang (default 0).
+ * - screenLeftConcavity : seberapa cekung bagian KIRI plane melesak ke
+ *                        belakang (default 0).
+ * - screenRightConcavity: seberapa cekung bagian KANAN plane melesak ke
+ *                        belakang (default 0).
+ *                        Keempatnya independen dan bisa dikombinasikan.
+ *                        Naikkan pelan-pelan (mis. 0.3, 0.6) sampai dapat
+ *                        bentuk yang pas — sisi yang tidak diisi (0) akan
+ *                        tetap cembung normal.
  */
 const Target = ({
     screenImage,
@@ -22,7 +172,15 @@ const Target = ({
     debugHighlight,
     screenOffsetX = 0,
     screenOffsetY = 0,
-    screenScale = 1,
+    screenOffsetZ = 0.5,
+    screenWidth = 7,
+    screenHeight = 3,
+    screenCornerRadius = 0.4,
+    screenCurvature = 0.3,
+    screenBottomConcavity = 9,
+    screenTopConcavity = 0,
+    screenLeftConcavity = 0,
+    screenRightConcavity = 0,
     ...props
 }) => {
     const targetRef = useRef()
@@ -100,15 +258,11 @@ const Target = ({
         }
 
         if (!foundScreenMesh && !screenMeshName && typeof screenMeshIndex !== 'number') {
-            const knownScreenKeywords = ['screen', 'monitor', 'display', 'lcd', 'bezel', 'frame']
-            foundScreenMesh = meshList.find((m) => {
-                const name = m.name.toLowerCase()
-                return knownScreenKeywords.some((keyword) => name.includes(keyword))
-            })?.mesh ?? null
+            foundScreenMesh = meshList.find((m) => m.name.toLowerCase().includes('screen'))?.mesh ?? null
         }
 
         if (foundScreenMesh) {
-            console.log('[Target] Mesh layar dipakai:', foundScreenMesh.name)
+            console.log('[Target] Mesh layar dipakai (untuk posisi saja):', foundScreenMesh.name)
         } else if (!debugHighlight) {
             console.warn(
                 '[Target] Mesh layar belum ditentukan. Coba isi prop screenMeshIndex ' +
@@ -127,8 +281,6 @@ const Target = ({
         }
     }, [scene, screenMeshName, screenMeshIndex, debugHighlight])
 
-    // Hitung posisi & ukuran overlay Html, relatif terhadap group Target
-    // (bukan world space), supaya ikut bergerak & berotasi bareng model.
     useEffect(() => {
         if (!screenMesh || !targetRef.current) return
 
@@ -147,19 +299,18 @@ const Target = ({
         const localPos = targetRef.current.worldToLocal(worldPos.clone())
         const localQuat = worldQuat.clone().premultiply(groupQuat.clone().invert())
 
-        const box = new Box3().setFromObject(screenMesh)
-        const size = new Vector3()
-        box.getSize(size)
+        const forward = new Vector3(0, 0, 1).applyQuaternion(localQuat).multiplyScalar(screenOffsetZ)
 
         setScreenTransform({
-            position: localPos.toArray(),
+            position: [
+                localPos.x + forward.x + screenOffsetX,
+                localPos.y + forward.y + screenOffsetY,
+                localPos.z + forward.z,
+            ],
             quaternion: localQuat.toArray(),
-            // Pakai x & y mesh sebagai lebar/tinggi layar. Kalau ukurannya
-            // meleset (kegedean/kekecilan), tinggal atur lewat prop screenScale.
-            width: size.x,
-            height: size.y,
         })
-    }, [screenMesh])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [screenMesh, screenOffsetX, screenOffsetY, screenOffsetZ])
 
     useGSAP(() => {
         if (!targetRef.current) return
@@ -171,6 +322,16 @@ const Target = ({
             yoyo: true,
         })
     }, [])
+
+    const screenConcavity = useMemo(
+        () => ({
+            bottom: screenBottomConcavity,
+            top: screenTopConcavity,
+            left: screenLeftConcavity,
+            right: screenRightConcavity,
+        }),
+        [screenBottomConcavity, screenTopConcavity, screenLeftConcavity, screenRightConcavity]
+    )
 
     if (!centeredScene) return null
 
@@ -184,51 +345,30 @@ const Target = ({
         >
             <primitive object={centeredScene} />
 
-            {screenTransform && (screenVideo || screenImage) && !debugHighlight && (
-                <group
-                    position={[
-                        screenTransform.position[0] + screenOffsetX,
-                        screenTransform.position[1] + screenOffsetY,
-                        screenTransform.position[2],
-                    ]}
+            {screenTransform && screenVideo && !debugHighlight && (
+                <VideoPlane
+                    position={screenTransform.position}
                     quaternion={screenTransform.quaternion}
-                >
-                    <Html
-                        transform
-                        occlude={false}
-                        distanceFactor={1}
-                        style={{ pointerEvents: 'none' }}
-                    >
-                        {screenVideo ? (
-                            <video
-                                src={screenVideo}
-                                autoPlay
-                                loop
-                                muted
-                                playsInline
-                                preload="auto"
-                                style={{
-                                    width: `${screenTransform.width * 100 * screenScale}px`,
-                                    height: `${screenTransform.height * 100 * screenScale}px`,
-                                    objectFit: 'cover',
-                                    display: 'block',
-                                    background: 'black',
-                                }}
-                            />
-                        ) : (
-                            <img
-                                src={screenImage}
-                                alt=""
-                                style={{
-                                    width: `${screenTransform.width * 100 * screenScale}px`,
-                                    height: `${screenTransform.height * 100 * screenScale}px`,
-                                    objectFit: 'cover',
-                                    display: 'block',
-                                }}
-                            />
-                        )}
-                    </Html>
-                </group>
+                    width={screenWidth}
+                    height={screenHeight}
+                    radius={screenCornerRadius}
+                    curvature={screenCurvature}
+                    concavity={screenConcavity}
+                    src={screenVideo}
+                />
+            )}
+
+            {screenTransform && !screenVideo && screenImage && !debugHighlight && (
+                <PhotoPlane
+                    position={screenTransform.position}
+                    quaternion={screenTransform.quaternion}
+                    width={screenWidth}
+                    height={screenHeight}
+                    radius={screenCornerRadius}
+                    curvature={screenCurvature}
+                    concavity={screenConcavity}
+                    src={screenImage}
+                />
             )}
 
             <mesh>
