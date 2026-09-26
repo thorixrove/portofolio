@@ -95,7 +95,7 @@ const About = () => {
                         <img
                             src="assets/grid4.png"
                             alt="grid-4"
-                            className="w-full md:h-[126px] sm:h-[276px] h-fit object-cover sm:object-top"
+                            className="w-full md:h-[150px] sm:h-[276px] h-fit object-cover sm:object-top"
                         />
 
                         <div className="space-y-2">
