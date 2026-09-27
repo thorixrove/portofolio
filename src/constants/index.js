@@ -309,4 +309,5 @@ export const workExperiences = [
     icon: '/assets/notion.svg',
     animation: 'salute',
   },
+  
 ];

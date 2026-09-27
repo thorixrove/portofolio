@@ -4,6 +4,8 @@ import Footer from "./sections/Footer"
 import Hero from "./sections/Hero"
 import Navbar from "./sections/Navbar"
 import Projects from "./sections/Projects"
+import WorkExperience from "./sections/Experience"
+import Clients from "./sections/Clients"
 
 const App = () => {
   return (
@@ -13,6 +15,8 @@ const App = () => {
         <Hero/>
         <About/>
         <Projects/>
+        <Clients/>
+        <WorkExperience/>  
         <Contact/>
       </main>
       <Footer/>
