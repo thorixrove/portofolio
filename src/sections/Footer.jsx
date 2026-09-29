@@ -1,4 +1,5 @@
 import React from 'react'
+import { FooterSocialsSlot } from '../components/SocialSidebar'
 
 const Footer = () => {
   return (
@@ -9,17 +10,8 @@ const Footer = () => {
         <p>Privacy Policy</p>
       </div>
 
-      <div className="flex gap-3">
-        <div  className="social-icon">
-            <img src="/assets/github.svg" alt="github" className="w-1/2 h-1/2" />
-        </div>
-        <div className="social-icon">
-            <img src="/assets/twitter.svg" alt="twitter" className="w-1/2 h-1/2" />
-        </div>
-        <div className="social-icon">
-            <img src="/assets/instagram.svg" alt="instagram" className="w-1/2 h-1/2"/>
-        </div>
-      </div>
+      {/* Tempat ikon sosial media "mendarat" saat scroll sampai bawah */}
+      <FooterSocialsSlot />
 
       <p className="text-white-500">© {new Date().getFullYear()} Thoriq Wajo. All rights reserved.</p>
     </footer>

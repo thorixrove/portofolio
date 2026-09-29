@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Globe from 'react-globe.gl';
+import { certifications } from '../constants/index.js';
 
 import Button from '../components/Button.jsx';
 
@@ -27,7 +28,7 @@ const About = () => {
             <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-cols-1 gap-5 h-full">
                 <div className="col-span-1 xl:row-span-3">
                     <div className="grid-container">
-                        <img src="assets/grid1.png" alt="grid-1" className="w-full sm:h-[276px] h-fit object-contain"/>
+                        <img src="assets/grid1.png" alt="grid-1" className="w-full sm:h-[276px] h-fit object-contain" />
 
                         <div>
                             <p className="grid-headtext">Hi, I'am Thoriq Wajo</p>
@@ -41,7 +42,7 @@ const About = () => {
 
                 <div className="col-span-1 xl:row-span-3">
                     <div className="grid-container">
-                        <img src="assets/grid2.png" alt="grid-2" className="w-full sm:h-[276px] h-fit object-contain"/>
+                        <img src="assets/grid2.png" alt="grid-2" className="w-full sm:h-[276px] h-fit object-contain" />
 
                         <div>
                             <p className="grid-headtext">Tech Stack</p>
@@ -65,7 +66,7 @@ const About = () => {
                                 showGraticules
                                 globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
                                 bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-                                labelsData={[{ lat: -0.86, lng: 134.06, text: 'Manokwari, Indonesia', color: 'white', size: 500}]}
+                                labelsData={[{ lat: -0.86, lng: 134.06, text: 'Manokwari, Indonesia', color: 'white', size: 500 }]}
                             />
                         </div>
                         <div>
@@ -104,6 +105,41 @@ const About = () => {
                                 <img src={hasCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" />
                                 <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">thorixrover@gmail.com</p>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="md:col-span-1 xl:col-span-3">
+                    <div className="grid-container">
+                        <div>
+                            <p className="grid-headtext">Certifications &amp; Achievements</p>
+                            <p className="grid-subtext">
+                               Certificates and achievements that support my expertise. 
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
+                            {certifications.map(({ id, title, issuer, date, skills, logo, image }) => (
+                                <a
+                                    key={id}
+                                    href={image}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-5 p-5 rounded-lg bg-[#080b12] border border-transparent hover:border-black-500 transition-colors"
+                                >
+                                    <img
+                                        src={logo}
+                                        alt={issuer}
+                                        className="w-[76px] h-[76px] shrink-0 rounded-full bg-white p-2 object-contain"
+                                    />
+                                    <div className="min-w-0">
+                                        <p className="text-xl font-semibold text-white font-generalsans leading-snug">{title}</p>
+                                        <p className="text-lg text-white-600 font-generalsans">{issuer}</p>
+                                        <p className="text-sm text-white-600 mt-1">{date}</p>
+                                        <p className="text-xs text-white-500 mt-2">Skills: {skills}</p>
+                                    </div>
+                                </a>
+                            ))}
                         </div>
                     </div>
                 </div>

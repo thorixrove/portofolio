@@ -11,8 +11,8 @@ export const navLinks = [
   },
   {
     id: 3,
-    name: 'Work',
-    href: '#work',
+    name: 'Project',
+    href: '#project',
   },
   {
     id: 4,
@@ -309,5 +309,19 @@ export const workExperiences = [
     icon: '/assets/notion.svg',
     animation: 'salute',
   },
-  
+
+];
+
+// GANTI SERTIFIKAT DI BAGIAN SINI !!!
+export const certifications = [
+  {
+    id: 1,
+    title: 'Toefl',
+    issuer: 'Unipa',
+    date: 'March 2025 - March 2027',
+    skills: 'Writing, Listening, Reading',
+    logo: '/certificates/logos/logo_01.png',
+    image: '/certificates/01.png',
+  },
+
 ];

@@ -6,6 +6,7 @@ import Navbar from "./sections/Navbar"
 import Projects from "./sections/Projects"
 import WorkExperience from "./sections/Experience"
 import Clients from "./sections/Clients"
+import SocialSidebar from "./components/SocialSidebar"
 
 const App = () => {
   return (
@@ -14,10 +15,11 @@ const App = () => {
       <main className='max-w-7xl mx-auto'>
         <Hero/>
         <About/>
+        <WorkExperience/>  
         <Projects/>
         <Clients/>
-        <WorkExperience/>  
         <Contact/>
+        <SocialSidebar/>
       </main>
       <Footer/>
     </>
