@@ -3,6 +3,9 @@ import Globe from 'react-globe.gl';
 import { certifications } from '../constants/index.js';
 
 import Button from '../components/Button.jsx';
+import TechStackFlow from '../components/TechStackFlow.jsx';
+import AvatarSwitcher from '../components/AvatarSwitcher.jsx';
+import Keyboard from '../components/Keyboard.jsx';
 
 const About = () => {
     const [hasCopied, setHasCopied] = useState(false)
@@ -28,7 +31,9 @@ const About = () => {
             <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-cols-1 gap-5 h-full">
                 <div className="col-span-1 xl:row-span-3">
                     <div className="grid-container">
-                        <img src="assets/grid1.png" alt="grid-1" className="w-full sm:h-[276px] h-fit object-contain" />
+                        <div className="w-full sm:h-[276px] h-[220px]">
+                            <AvatarSwitcher />
+                        </div>
 
                         <div>
                             <p className="grid-headtext">Hi, I'am Thoriq Wajo</p>
@@ -42,7 +47,9 @@ const About = () => {
 
                 <div className="col-span-1 xl:row-span-3">
                     <div className="grid-container">
-                        <img src="assets/grid2.png" alt="grid-2" className="w-full sm:h-[276px] h-fit object-contain" />
+                        <div className="w-full sm:h-[276px] h-[220px]">
+                            <TechStackFlow />
+                        </div>
 
                         <div>
                             <p className="grid-headtext">Tech Stack</p>
@@ -79,7 +86,9 @@ const About = () => {
 
                 <div className="xl:col-span-2 xl:row-span-3">
                     <div className="grid-container">
-                        <img src="assets/grid3.png" alt="grid-3" className="w-full sm:h-[266px] h-fit object-contain" />
+                        <div className="w-full sm:h-[266px] h-[260px]">
+                            <Keyboard />
+                        </div>
 
                         <div >
                             <p className="grid-headtext">My Passion for Coding</p>
@@ -114,7 +123,7 @@ const About = () => {
                         <div>
                             <p className="grid-headtext">Certifications &amp; Achievements</p>
                             <p className="grid-subtext">
-                               Certificates and achievements that support my expertise. 
+                                Certificates and achievements that support my expertise.
                             </p>
                         </div>
 

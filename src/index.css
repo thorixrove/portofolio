@@ -18,6 +18,18 @@
   --color-white-500: #62646c;
 
   --background-image-terminal: url('/assets/terminal.png');
+
+  /* Animasi marquee untuk section Clients */
+  --animate-marquee: marquee var(--duration, 40s) linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
 }
 
 * {
@@ -103,6 +115,17 @@ body {
 
   .tech-logo {
     @apply w-10 h-10 rounded-md p-2 bg-neutral-100/10 backdrop-blur-lg flex justify-center items-center;
+  }
+
+  .marquee-mask {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee {
+      animation: none;
+    }
   }
 
   .client-container {
@@ -198,5 +221,318 @@ body {
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+
+/* Tech flow (kolom ikon teknologi) */
+.tech-flow-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 28px, black calc(100% - 28px), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, black 28px, black calc(100% - 28px), transparent 100%);
+}
+
+.tech-flow-col {
+  position: relative;
+  width: 62px;
+  flex-shrink: 0;
+  height: 100%;
+}
+
+.tech-flow-col::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: 2px dashed rgba(255, 255, 255, 0.12);
+  z-index: 0;
+}
+
+.tech-flow-scroll {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  scroll-behavior: auto; /* override "* { scroll-behavior: smooth }" agar auto-scroll tidak patah */
+  -webkit-overflow-scrolling: touch;
+    padding: 6px 8px;
+  margin: -6px -8px;
+}
+
+.tech-flow-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.tech-flow-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.tech-flow-icon {
+  position: relative;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.tech-flow-icon:hover {
+  transform: scale(1.12);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.tech-flow-tooltip {
+  position: fixed;
+  transform: translate(-50%, -100%);
+  background: #1c1c21;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Avatar switcher (kartu About pertama) — tempel di akhir src/index.css */
+.avatar-stage {
+  position: relative;
+  width: 100%;
+  height: 110%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-window {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 10px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+}
+
+.avatar-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.avatar-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.avatar-tiles {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.avatar-tile {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.avatar-card {
+  position: relative;
+  z-index: 1;
+  width: 170px;
+  height: 200px;
+  padding: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: #1c1c21;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.avatar-card:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 36px rgba(255, 255, 255, 0.12);
+}
+
+.avatar-card:active {
+  transform: scale(0.94);
+}
+
+.avatar-card:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 3px;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+}
+
+@keyframes avatar-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6) rotate(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-img {
+    animation: none;
+  }
+}
+
+/* Keyboard interaktif (kartu "My Passion for Coding") — tempel di akhir src/index.css */
+.kb-root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  outline: none;
+  cursor: text;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.kb-root--focus {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+}
+
+.kb-screen {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  background: #080b12;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 16px;
+  white-space: pre;
+  overflow: hidden;
+}
+
+.kb-text {
+  color: #fff;
+}
+
+.kb-placeholder {
+  color: #62646c;
+}
+
+.kb-caret {
+  width: 2px;
+  height: 18px;
+  margin-left: 2px;
+  background: #22c55e;
+  animation: kb-blink 1s steps(1) infinite;
+}
+
+@keyframes kb-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.kb-board {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.kb-row {
+  flex: 1;
+  min-height: 36px;
+  display: flex;
+  gap: 6px;
+}
+
+.kb-row--2 {
+  padding: 0 5%;
+}
+
+.kb-key {
+  flex: 1;
+  min-width: 0;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: #afb0b6;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.08s, background 0.12s, border-color 0.12s, color 0.12s, box-shadow 0.12s;
+}
+
+.kb-key:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.kb-key--backspace {
+  flex: 3;
+}
+.kb-key--space {
+  flex: 6;
+}
+.kb-key--enter {
+  flex: 2;
+}
+
+.kb-key--down,
+.kb-key:active {
+  transform: translateY(2px) scale(0.96);
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kb-key,
+  .kb-root {
+    transition: none;
+  }
+  .kb-caret {
+    animation: none;
   }
 }

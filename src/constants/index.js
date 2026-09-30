@@ -325,3 +325,17 @@ export const certifications = [
   },
 
 ];
+
+// Tempel di src/constants/index.js (ganti nama file sesuai gambar di public/assets/)
+export const avatars = [
+  '/assets/avatar1.webp',
+  '/assets/avatar2.webp',
+  '/assets/avatar3.webp',
+  '/assets/avatar4.webp',
+  '/assets/avatar5.webp',
+  '/assets/avatar6.webp',
+  '/assets/avatar7.webp',
+  '/assets/avatar8.webp',
+  '/assets/avatar9.webp',
+  '/assets/avatar10.webp',
+];
