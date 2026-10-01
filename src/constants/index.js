@@ -62,52 +62,13 @@ export const clientReviews = [
 // GANTI PROJECT DI BAGIAN SINI !!!
 export const myProjects = [
   {
-    title: 'Podcastr - AI Podcast Platform',
-    desc: 'Podcastr is a revolutionary Software-as-a-Service platform that transforms the way podcasts are created. With advanced AI-powered features like text-to-multiple-voices functionality, it allows creators to generate diverse voiceovers from a single text input.',
+    title: 'ARCHISMART - Digital Correspondence Management System',
+    desc: 'ARCHISMART is a full-stack web application for managing internal correspondence at BPKAD. It lets staff send and receive letters, classify them, attach digital archive files (PDF, Word, Excel), preview documents, and download a letter together with its metadata as a ZIP file.',
     subdesc:
-      'Built as a unique Software-as-a-Service app with Next.js 14, Tailwind CSS, TypeScript, Framer Motion and Convex, Podcastr is designed for optimal performance and scalability.',
-    href: 'https://www.youtube.com/watch?v=zfAb95tJvZQ',
+      'Built with React, Bootstrap, Node.js, Express and MongoDB Atlas. It features JWT authentication, role-based access for admins and users, activity history, report generation, and login rate limiting. The frontend is deployed on Vercel and the backend on Render.',
+    href: 'https://archismart.vercel.app',
     texture: '/textures/project/project1.mp4',
     logo: '/assets/project-logo1.png',
-    logoStyle: {
-      backgroundColor: '#2A1816',
-      border: '0.2px solid #36201D',
-      boxShadow: '0px 0px 60px 0px #AA3C304D',
-    },
-    spotlight: '/assets/spotlight1.png',
-    tags: [
-      {
-        id: 1,
-        name: 'React.js',
-        path: '/assets/react.svg',
-      },
-      {
-        id: 2,
-        name: 'TailwindCSS',
-        path: 'assets/tailwindcss.png',
-      },
-      {
-        id: 3,
-        name: 'TypeScript',
-        path: '/assets/typescript.png',
-      },
-      {
-        id: 4,
-        name: 'Framer Motion',
-        path: '/assets/framer.png',
-      },
-    ],
-  },
-
-
-  {
-    title: 'LiveDoc - Real-Time Google Docs Clone',
-    desc: 'LiveDoc is a powerful collaborative app that elevates the capabilities of real-time document editing. As an enhanced version of Google Docs, It supports millions of collaborators simultaneously, ensuring that every change is captured instantly and accurately.',
-    subdesc:
-      'With LiveDoc, users can experience the future of collaboration, where multiple contributors work together in real time without any lag, by using Next.js and Liveblocks newest features.',
-    href: 'https://www.youtube.com/watch?v=y5vE8y_f_OM',
-    texture: '/textures/project/project2.mp4',
-    logo: '/assets/project-logo2.png',
     logoStyle: {
       backgroundColor: '#13202F',
       border: '0.2px solid #17293E',
@@ -122,39 +83,40 @@ export const myProjects = [
       },
       {
         id: 2,
-        name: 'TailwindCSS',
-        path: 'assets/tailwindcss.png',
+        name: 'Bootstrap',
+        path: '/assets/bootstrap.png',
       },
       {
         id: 3,
-        name: 'TypeScript',
-        path: '/assets/typescript.png',
+        name: 'Node.js',
+        path: '/assets/nodejs.png',
       },
       {
         id: 4,
-        name: 'Framer Motion',
-        path: '/assets/framer.png',
+        name: 'MongoDB',
+        path: '/assets/mongodb.png',
       },
     ],
   },
 
 
+  // Tempel objek ini ke dalam array proyek di constants/index.js
+  // (di bawah entri proyek terakhir). Sesuaikan path aset dengan file milikmu.
   {
-    title: 'CarePulse - Health Management System',
-    desc: 'An innovative healthcare platform designed to streamline essential medical processes. It simplifies patient registration, appointment scheduling, and medical record management, providing a seamless experience for both healthcare providers and patients.',
+    title: 'JH.Floris - Flower Bouquet E-Commerce Platform',
+    desc: 'JH.Floris is a full-stack flower bouquet e-commerce platform where customers can browse the catalog, manage their cart, place orders, and track them, while admins manage products and orders through a dedicated dashboard.',
     subdesc:
-      'With a focus on efficiency, CarePulse integrantes complex forms and SMS notifications, by using Next.js, Appwrite, Twillio and Sentry that enhance operational workflows.',
-    href: 'https://www.youtube.com/watch?v=lEflo_sc82g',
-    texture: '/textures/project/project3.mp4',
-    logo: '/assets/project-logo3.png',
+      'The frontend is built with React 19 (Vite), Tailwind CSS, DaisyUI, Framer Motion, TanStack Query, and Zustand. The backend runs on Express and TypeScript with Drizzle ORM and PostgreSQL, Clerk authentication, Stream chat and video calls for order support, ImageKit for media uploads, and Sentry for monitoring. Payments use a manual bank transfer flow, and the app is deployed to Render with Docker.',
+    href: 'https://jh-floris.onrender.com/',
+    //  linkLabel: 'Download APK',
+    texture: '/textures/project/project2.mp4',
+    logo: '/assets/project-logo2.png',
     logoStyle: {
-      backgroundColor: '#60f5a1',
-      background:
-        'linear-gradient(0deg, #60F5A150, #60F5A150), linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(208, 213, 221, 0.8) 100%)',
-      border: '0.2px solid rgba(208, 213, 221, 1)',
-      boxShadow: '0px 0px 60px 0px rgba(35, 131, 96, 0.3)',
+      backgroundColor: '#2A1320',
+      border: '0.2px solid #43203A',
+      boxShadow: '0px 0px 60px 0px #D6407A4D',
     },
-    spotlight: '/assets/spotlight3.png',
+    spotlight: '/assets/spotlight6.png',
     tags: [
       {
         id: 1,
@@ -175,6 +137,47 @@ export const myProjects = [
         id: 4,
         name: 'Framer Motion',
         path: '/assets/framer.png',
+      },
+    ],
+  },
+
+  // Paste this object into the projects array in constants/index.js
+  // (below the last project entry). Adjust the asset paths to match your files.
+  {
+    title: 'Almanance - AI-Powered Personal Finance App',
+    desc: 'Almanance is a mobile personal finance app that helps users track income and expenses, set budgets, and understand their spending through charts and an AI assistant. Transactions can be added by typing, scanning a receipt, or simply speaking.',
+    subdesc:
+      'Built with React Native (Expo) and TypeScript, styled with NativeWind, and powered by Expo Router, TanStack Query, and Zustand. Authentication is handled by Clerk with Supabase as the database, while Groq vision and Whisper speech-to-text models extract transactions from receipt photos and voice notes. It also supports multiple currencies and interactive charts.',
+    href: 'https://drive.google.com/file/d/1RMMYefKd0pZpdgc6A6oiWp2t8slVxRKU/view?usp=drive_link',
+    linkLabel: 'Download APK',
+    texture: '/textures/project/project3.mp4',
+    logo: '/assets/project-logo5.png',
+    logoStyle: {
+      backgroundColor: '#0F2A1D',
+      border: '0.2px solid #1B4A32',
+      boxShadow: '0px 0px 60px 0px #76D8894D',
+    },
+    spotlight: '/assets/spotlight3.png',
+    tags: [
+      {
+        id: 1,
+        name: 'React Native',
+        path: '/assets/react.svg',
+      },
+      {
+        id: 2,
+        name: 'TailwindCSS',
+        path: 'assets/tailwindcss.png',
+      },
+      {
+        id: 3,
+        name: 'TypeScript',
+        path: '/assets/typescript.png',
+      },
+      {
+        id: 4,
+        name: 'Supabase',
+        path: '/assets/supabase.png',
       },
     ],
   },

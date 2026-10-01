@@ -65,7 +65,7 @@ const Projects = () => {
                             target="_blank"
                             rel="noreferrer"
                         >
-                            <p>Check Live Site</p>
+                            <p>{currentProject.linkLabel ?? 'Check Live Site'}</p>
                             <img src="/assets/arrow-up.png" alt="arrow" className="w-3 h-3" />
                         </a>
                     </div>
