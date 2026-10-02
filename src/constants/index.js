@@ -63,12 +63,12 @@ export const clientReviews = [
 export const myProjects = [
   {
     title: 'ARCHISMART - Digital Correspondence Management System',
-    desc: 'ARCHISMART is a full-stack web application for managing internal correspondence at BPKAD. It lets staff send and receive letters, classify them, attach digital archive files (PDF, Word, Excel), preview documents, and download a letter together with its metadata as a ZIP file.',
+    desc: 'ARCHISMART is a full-stack web application for managing internal correspondence. It lets staff send and receive letters, classify them, attach digital archive files (PDF, Word, Excel), preview documents, and download a letter together with its metadata as a ZIP file.',
     subdesc:
       'Built with React, Bootstrap, Node.js, Express and MongoDB Atlas. It features JWT authentication, role-based access for admins and users, activity history, report generation, and login rate limiting. The frontend is deployed on Vercel and the backend on Render.',
     href: 'https://archismart.vercel.app',
     texture: '/textures/project/project1.mp4',
-    logo: '/assets/project-logo1.png',
+    logo: '/assets/bpkad.png',
     logoStyle: {
       backgroundColor: '#13202F',
       border: '0.2px solid #17293E',
@@ -151,13 +151,13 @@ export const myProjects = [
     href: 'https://drive.google.com/file/d/1RMMYefKd0pZpdgc6A6oiWp2t8slVxRKU/view?usp=drive_link',
     linkLabel: 'Download APK',
     texture: '/textures/project/project3.mp4',
-    logo: '/assets/project-logo5.png',
+    logo: '/assets/project-logo3.png',
     logoStyle: {
-      backgroundColor: '#0F2A1D',
-      border: '0.2px solid #1B4A32',
-      boxShadow: '0px 0px 60px 0px #76D8894D',
+      backgroundColor: '#1A120B',
+      border: '0.2px solid #4A3B2C',
+      boxShadow: '0px 0px 60px 0px rgba(205, 127, 50, 0.3)', // #CD7F32 dengan opasitas 30%
     },
-    spotlight: '/assets/spotlight3.png',
+    spotlight: '/assets/spotlight1.png',
     tags: [
       {
         id: 1,
@@ -184,19 +184,19 @@ export const myProjects = [
 
 
   {
-    title: 'Horizon - Online Banking Platform',
-    desc: 'Horizon is a comprehensive online banking platform that offers users a centralized finance management dashboard. It allows users to connect multiple bank accounts, monitor real-time transactions, and seamlessly transfer money to other users.',
+    title: 'Vegetable Classification - Species & Quality Detection',
+    desc: 'Vegetable Classification is a web application that identifies the species and freshness quality of vegetables from a single photo. Users upload an image and instantly get the species, quality level (young, ripe, wilted, or rotten), confidence scores, and storage tips.',
     subdesc:
-      'Built with Next.js 14 Appwrite, Dwolla and Plaid, Horizon ensures a smooth and secure banking experience, tailored to meet the needs of modern consumers.',
-    href: 'https://www.youtube.com/watch?v=PuOVqP_cjkE',
+      'Built with React.js, Vite, and FastAPI, and powered by two MobileNetV2 models trained with TensorFlow. It recognizes 8 vegetable species and 16 quality classes, with a consumption warning banner and a local prediction history.',
+    href: 'https://vegetable-clasification.vercel.app/',
     texture: '/textures/project/project4.mp4',
     logo: '/assets/project-logo4.png',
     logoStyle: {
-      backgroundColor: '#0E1F38',
-      border: '0.2px solid #0E2D58',
-      boxShadow: '0px 0px 60px 0px #2F67B64D',
+      backgroundColor: '#14301F',
+      border: '0.2px solid #1F7A45',
+      boxShadow: '0px 0px 60px 0px #3F9A624D',
     },
-    spotlight: '/assets/spotlight4.png',
+    spotlight: '/assets/spotlight3.png',
     tags: [
       {
         id: 1,
@@ -205,18 +205,18 @@ export const myProjects = [
       },
       {
         id: 2,
-        name: 'TailwindCSS',
-        path: 'assets/tailwindcss.png',
+        name: 'FastAPI',
+        path: '/assets/fastapi.png',
       },
       {
         id: 3,
-        name: 'TypeScript',
-        path: '/assets/typescript.png',
+        name: 'TensorFlow',
+        path: '/assets/tensorflow.png',
       },
       {
         id: 4,
-        name: 'Framer Motion',
-        path: '/assets/framer.png',
+        name: 'Python',
+        path: '/assets/python.png',
       },
     ],
   },
@@ -287,32 +287,31 @@ export const calculateSizes = (isSmall, isMobile, isTablet) => {
 export const workExperiences = [
   {
     id: 1,
-    name: 'Framer',
-    pos: 'Lead Web Developer',
-    duration: '2022 - Present',
-    title: "Framer serves as my go-to tool for creating interactive prototypes. I use it to bring designs to  life, allowing stakeholders to experience the user flow and interactions before development.",
-    icon: '/assets/framer.svg',
+    name: 'BPKAD West Papua',
+    pos: 'Web Developer Intern',
+    duration: 'Jan 2026 - Feb 2026',
+    title: "Built a correspondence and document management website for BPKAD Papua Barat. The system digitizes incoming and outgoing letters so records are easier to organize, track, and retrieve.",
+    icon: '/assets/bpkad.png',
     animation: 'victory',
   },
   {
     id: 2,
-    name: 'Figma',
-    pos: 'Web Developer',
-    duration: '2020 - 2022',
-    title: "Figma is my collaborative design platform of choice. I utilize it to work seamlessly with team members and clients, facilitating real-time feedback and design iterations. Its cloud-based.",
-    icon: '/assets/figma.svg',
+    name: 'BMKG West Papua',
+    pos: 'IT Support',
+    duration: 'Jun 2024 - Jul 2024',
+    title: "Handled server installation and setup at BMKG Manokwari, supporting the IT infrastructure the office relies on for daily operations.",
+    icon: '/assets/bmkg.png',
     animation: 'clapping',
   },
   {
     id: 3,
-    name: 'Notion',
-    pos: 'Junior Web Developer',
-    duration: '2019 - 2020',
-    title: "Notion helps me keep my projects organized. I use it for project management, task tracking, and as a central hub for documentation, ensuring that everything from design notes to.",
-    icon: '/assets/notion.svg',
+    name: 'Freelance',
+    pos: 'Graphic Designer',
+    duration: '2023 - Present',
+    title: "Delivered a variety of design projects for clients, from branding and social media visuals to print materials, using Canva and Photoshop to turn ideas into polished, consistent designs.",
+    icon: '/assets/design.png',
     animation: 'salute',
   },
-
 ];
 
 // GANTI SERTIFIKAT DI BAGIAN SINI !!!
