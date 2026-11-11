@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import Globe from 'react-globe.gl';
 import { certifications } from '../constants/index.js';
 
@@ -6,6 +6,7 @@ import Button from '../components/Button.jsx';
 import TechStackFlow from '../components/TechStackFlow.jsx';
 import AvatarSwitcher from '../components/AvatarSwitcher.jsx';
 import Keyboard from '../components/Keyboard.jsx';
+import LazyMount from '../components/LazyMount.jsx';
 
 const About = () => {
     const [hasCopied, setHasCopied] = useState(false)
@@ -64,17 +65,21 @@ const About = () => {
                 <div className="col-span-1 xl:row-span-4">
                     <div className="grid-container">
                         <div className="rounded-3xl w-full sm:h-[326px] h-fit flex justify-center items-center">
-                            <Globe
-                                height={326}
-                                width={326}
-                                backgroundColor="rgba(0, 0, 0, 0)"
-                                backgroundImageOpacity={0.5}
-                                showAtmosphere
-                                showGraticules
-                                globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-                                bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-                                labelsData={[{ lat: -0.86, lng: 134.06, text: 'Manokwari, Indonesia', color: 'white', size: 500 }]}
-                            />
+                            <LazyMount>
+                                <Suspense fallback={null}>
+                                    <Globe
+                                        height={326}
+                                        width={326}
+                                        backgroundColor="rgba(0, 0, 0, 0)"
+                                        backgroundImageOpacity={0.5}
+                                        showAtmosphere
+                                        showGraticules
+                                        globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+                                        bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+                                        labelsData={[{ lat: -0.86, lng: 134.06, text: 'Manokwari, Indonesia', color: 'white', size: 500 }]}
+                                    />
+                                </Suspense>
+                            </LazyMount>
                         </div>
                         <div>
                             <p className="grid-headtext">I’m very flexible with time zone communications & locations</p>

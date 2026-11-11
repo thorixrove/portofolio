@@ -14,6 +14,7 @@ import Rings from '../components/Rings.jsx';
 import Target from '../components/Target.jsx';
 import { calculateSizes } from '../constants/index.js';
 
+
 const Hero = () => {
 
   const TargetModel = Target as any;
@@ -34,6 +35,7 @@ const Hero = () => {
     <section className="min-h-screen w-full flex flex-col relative" id="home">
       <div className="w-full h-full absolute inset-0 overflow-hidden">
         <Canvas
+          dpr={[1, 1.5]}
           className="w-full h-full"
           style={{ pointerEvents: 'auto', touchAction: 'none', cursor: 'grab' }}
         >
@@ -43,23 +45,25 @@ const Hero = () => {
             <PerspectiveCamera makeDefault position={[0, 0, 30]} />
 
             <HeroCamera isMobile={isMobile}>
-              <TargetModel
-                position={sizes.targetPosition}
-                scale={sizes.targetScale}
-                screenVideo="/textures/nono_square.mp4"
-                screenMeshIndex={5}
-                screenOffsetX={5.3}
-                screenOffsetY={1}
-                screenOffsetZ={2}
-                screenWidth={6}
-                screenHeight={5}
-                screenCornerRadius={8}
-                screenCurvature={0.8}
-                screenBottomConcavity={0.001}
-                screenTopConcavity={0.3}
-                screenLeftConcavity={0.2}
-                screenRightConcavity={0.3}
-              />
+              <Suspense fallback={<CanvasLoader />}>
+                <TargetModel
+                  position={sizes.targetPosition}
+                  scale={sizes.targetScale}
+                  screenVideo="/textures/nono_square.mp4"
+                  screenMeshIndex={5}
+                  screenOffsetX={5.3}
+                  screenOffsetY={1}
+                  screenOffsetZ={2}
+                  screenWidth={6}
+                  screenHeight={5}
+                  screenCornerRadius={8}
+                  screenCurvature={0.8}
+                  screenBottomConcavity={0.001}
+                  screenTopConcavity={0.3}
+                  screenLeftConcavity={0.2}
+                  screenRightConcavity={0.3}
+                />
+              </Suspense>
             </HeroCamera>
 
             {/* Elemen lain sekarang bisa di-drag bebas oleh kursor/jari,
@@ -117,7 +121,7 @@ const Hero = () => {
             <Button
               name="Let's work together"
               isBeam
-              onClick={() => {}}
+              onClick={() => { }}
               containerClass="sm:w-fit w-full sm:min-w-96"
             />
           </a>

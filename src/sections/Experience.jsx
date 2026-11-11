@@ -1,10 +1,10 @@
 import { Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-
 import Developer from '../components/Developer.jsx';
 import CanvasLoader from '../components/Loading.jsx';
 import { workExperiences } from '../constants/index.js';
+import LazyMount from '../components/LazyMount.jsx';
 
 const WorkExperience = () => {
   const [animationName, setAnimationName] = useState('idle')
@@ -16,15 +16,17 @@ const WorkExperience = () => {
 
         <div className="work-container">
           <div className="work-canvas">
-            <Canvas>
-              <ambientLight intensity={7} />
-              <spotLight position={[10, 10, 10]} intensity={1} />
-              <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} />
+            <LazyMount>
+              <Canvas>
+                <ambientLight intensity={7} />
+                <spotLight position={[10, 10, 10]} intensity={1} />
+                <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} />
 
-              <Suspense fallback={<CanvasLoader />}>
-                <Developer position-y={-3} scale={3} animationName={animationName} />
-              </Suspense>
-            </Canvas>
+                <Suspense fallback={<CanvasLoader />}>
+                  <Developer position-y={-3} scale={3} animationName={animationName} />
+                </Suspense>
+              </Canvas>
+            </LazyMount>
           </div>
 
           <div className="work-content">

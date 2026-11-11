@@ -1,7 +1,7 @@
 import { useGSAP } from '@gsap/react';
 import { useGLTF, useTexture, useVideoTexture } from '@react-three/drei';
 import gsap from 'gsap';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Box3, CanvasTexture, PlaneGeometry, Color, Quaternion, Vector3 } from 'three';
 
 /**
@@ -346,29 +346,33 @@ const Target = ({
             <primitive object={centeredScene} />
 
             {screenTransform && screenVideo && !debugHighlight && (
-                <VideoPlane
-                    position={screenTransform.position}
-                    quaternion={screenTransform.quaternion}
-                    width={screenWidth}
-                    height={screenHeight}
-                    radius={screenCornerRadius}
-                    curvature={screenCurvature}
-                    concavity={screenConcavity}
-                    src={screenVideo}
-                />
+                <Suspense fallback={null}>
+                    <VideoPlane
+                        position={screenTransform.position}
+                        quaternion={screenTransform.quaternion}
+                        width={screenWidth}
+                        height={screenHeight}
+                        radius={screenCornerRadius}
+                        curvature={screenCurvature}
+                        concavity={screenConcavity}
+                        src={screenVideo}
+                    />
+                </Suspense>
             )}
 
             {screenTransform && !screenVideo && screenImage && !debugHighlight && (
-                <PhotoPlane
-                    position={screenTransform.position}
-                    quaternion={screenTransform.quaternion}
-                    width={screenWidth}
-                    height={screenHeight}
-                    radius={screenCornerRadius}
-                    curvature={screenCurvature}
-                    concavity={screenConcavity}
-                    src={screenImage}
-                />
+                <Suspense fallback={null}>
+                    <PhotoPlane
+                        position={screenTransform.position}
+                        quaternion={screenTransform.quaternion}
+                        width={screenWidth}
+                        height={screenHeight}
+                        radius={screenCornerRadius}
+                        curvature={screenCurvature}
+                        concavity={screenConcavity}
+                        src={screenImage}
+                    />
+                </Suspense>
             )}
 
             <mesh>
@@ -378,5 +382,7 @@ const Target = ({
         </group>
     )
 }
+
+useGLTF.preload('/models/model_03.glb')
 
 export default Target
