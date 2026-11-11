@@ -1,7 +1,12 @@
-import { useRef, useEffect } from 'react';
-import { useGLTF, useAnimations, useVideoTexture } from '@react-three/drei';
+import { useRef, useEffect, useState } from 'react';
+import { useGLTF, useAnimations } from '@react-three/drei';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+
+import { myProjects } from '../constants/index.js';
+import { getProjectVideo, playOnly } from '../utils/projectVideos.js';
+
+const DEFAULT_SRC = '/textures/project/project1_opt.mp4'
 
 
 const DemoComputer = (props) => {
@@ -9,21 +14,50 @@ const DemoComputer = (props) => {
     const { nodes, materials, animations } = useGLTF('/models/computer.glb');
     const { actions } = useAnimations(animations, group)
 
-    const txt = useVideoTexture(props.texture ? props.texture : '/textures/project/project1.mp4')
+    const target = props.texture ? props.texture : DEFAULT_SRC
+
+    // Layar lama tetap tampil sampai video baru siap (tanpa spinner)
+    const [shownSrc, setShownSrc] = useState(null)
+    const txt = shownSrc ? getProjectVideo(shownSrc).texture : null
 
     useEffect(() => {
-        if (txt) {
-            txt.flipY = false
+        const { video } = getProjectVideo(target)
+        let cancelled = false
+        const show = () => {
+            if (!cancelled) setShownSrc(target)
         }
-    }, [txt])
+
+        if (video.readyState >= 2) show()
+        else video.addEventListener('loadeddata', show, { once: true })
+
+        return () => {
+            cancelled = true
+            video.removeEventListener('loadeddata', show)
+        }
+    }, [target])
+
+    useEffect(() => {
+        if (shownSrc) playOnly(shownSrc)
+    }, [shownSrc])
+
+    // Muat video project lain di latar belakang
+    useEffect(() => {
+        const id = setTimeout(() => {
+            myProjects.forEach((project) => {
+                if (project.texture) getProjectVideo(project.texture)
+            })
+        }, 1500)
+        return () => clearTimeout(id)
+    }, [])
 
     useGSAP(() => {
+        if (!group.current) return
         gsap.from(group.current.rotation, {
             y: Math.PI / 2,
             duration: 1,
             ease: 'power3.out',
         })
-    }, [txt])
+    }, [shownSrc])
 
     return (
         <group ref={group} {...props} dispose={null}>
@@ -37,7 +71,7 @@ const DemoComputer = (props) => {
                     position={[0.127, 1.831, 0.511]}
                     rotation={[1.571, -0.005, 0.031]}
                     scale={[0.661, 0.608, 0.401]}>
-                    <meshBasicMaterial map={txt} toneMapped={false} />
+                    <meshBasicMaterial map={txt} color={txt ? 'white' : 'black'} toneMapped={false} />
                 </mesh>
                 <group name="RootNode" position={[0, 1.093, 0]} rotation={[-Math.PI / 2, 0, -0.033]} scale={0.045}>
                     <group

@@ -67,7 +67,7 @@ export const myProjects = [
     subdesc:
       'Built with React, Bootstrap, Node.js, Express and MongoDB Atlas. It features JWT authentication, role-based access for admins and users, activity history, report generation, and login rate limiting. The frontend is deployed on Vercel and the backend on Render.',
     href: 'https://archismart.vercel.app',
-    texture: '/textures/project/project1.mp4',
+    texture: '/textures/project/project1_opt.mp4',
     logo: '/assets/bpkad.png',
     logoStyle: {
       backgroundColor: '#13202F',
@@ -109,7 +109,7 @@ export const myProjects = [
       'The frontend is built with React 19 (Vite), Tailwind CSS, DaisyUI, Framer Motion, TanStack Query, and Zustand. The backend runs on Express and TypeScript with Drizzle ORM and PostgreSQL, Clerk authentication, Stream chat and video calls for order support, ImageKit for media uploads, and Sentry for monitoring. Payments use a manual bank transfer flow, and the app is deployed to Render with Docker.',
     href: 'https://jh-floris.onrender.com/',
     //  linkLabel: 'Download APK',
-    texture: '/textures/project/project2.mp4',
+    texture: '/textures/project/project2_opt.mp4',
     logo: '/assets/project-logo2.png',
     logoStyle: {
       backgroundColor: '#2A1320',
@@ -150,7 +150,7 @@ export const myProjects = [
       'Built with React Native (Expo) and TypeScript, styled with NativeWind, and powered by Expo Router, TanStack Query, and Zustand. Authentication is handled by Clerk with Supabase as the database, while Groq vision and Whisper speech-to-text models extract transactions from receipt photos and voice notes. It also supports multiple currencies and interactive charts.',
     href: 'https://drive.google.com/file/d/1RMMYefKd0pZpdgc6A6oiWp2t8slVxRKU/view?usp=drive_link',
     linkLabel: 'Download APK',
-    texture: '/textures/project/project3.mp4',
+    texture: '/textures/project/project3_opt.mp4',
     logo: '/assets/project-logo3.png',
     logoStyle: {
       backgroundColor: '#1A120B',
@@ -189,7 +189,7 @@ export const myProjects = [
     subdesc:
       'Built with React.js, Vite, and FastAPI, and powered by two MobileNetV2 models trained with TensorFlow. It recognizes 8 vegetable species and 16 quality classes, with a consumption warning banner and a local prediction history.',
     href: 'https://vegetable-clasification.vercel.app/',
-    texture: '/textures/project/project4.mp4',
+    texture: '/textures/project/project4_opt.mp4',
     logo: '/assets/project-logo4.png',
     logoStyle: {
       backgroundColor: '#14301F',
@@ -289,7 +289,7 @@ export const certifications = [
     logo: '/certificates/logos/logo_01.png',
     image: '/certificates/01.png',
   },
-   {
+  {
     id: 2,
     title: 'Data Analysis: Fullstack Intensive Bootcamp',
     issuer: 'MySkill',

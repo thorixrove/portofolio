@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Center, OrbitControls } from '@react-three/drei';
 
@@ -27,6 +27,17 @@ const Projects = () => {
     useGSAP(() => {
         gsap.fromTo(`.animatedText`, { opacity: 0 }, { opacity: 1, duration: 1, stagger: 0.2, ease: 'power2.inOut' })
     }, [selectedProjectIndex])
+
+    // Muat gambar semua project di latar belakang
+    useEffect(() => {
+        const id = setTimeout(() => {
+            myProjects.forEach((project) => {
+                if (project.spotlight) new Image().src = project.spotlight
+                if (project.logo) new Image().src = project.logo
+            })
+        }, 3000)
+        return () => clearTimeout(id)
+    }, [])
 
     const currentProject = myProjects[selectedProjectIndex]
 
