@@ -220,6 +220,9 @@ export const myProjects = [
       },
     ],
   },
+
+
+
 ];
 
 export const calculateSizes = (isSmall, isMobile, isTablet) => {
@@ -285,6 +288,15 @@ export const certifications = [
     skills: 'Writing, Listening, Reading',
     logo: '/certificates/logos/logo_01.png',
     image: '/certificates/01.png',
+  },
+   {
+    id: 2,
+    title: 'Data Analysis: Fullstack Intensive Bootcamp',
+    issuer: 'MySkill',
+    date: 'November 2026',
+    skills: 'Data Analysis, Python, SQL',
+    logo: '/certificates/logos/logo_02.png',
+    image: '/certificates/02.png',
   },
 
 ];
