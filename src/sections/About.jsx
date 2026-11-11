@@ -1,5 +1,4 @@
 import { lazy, Suspense, useState } from 'react';
-import Globe from 'react-globe.gl';
 import { certifications } from '../constants/index.js';
 
 import Button from '../components/Button.jsx';
@@ -7,6 +6,8 @@ import TechStackFlow from '../components/TechStackFlow.jsx';
 import AvatarSwitcher from '../components/AvatarSwitcher.jsx';
 import Keyboard from '../components/Keyboard.jsx';
 import LazyMount from '../components/LazyMount.jsx';
+
+const Globe = lazy(() => import('react-globe.gl'));
 
 const About = () => {
     const [hasCopied, setHasCopied] = useState(false)
