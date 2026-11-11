@@ -1,6 +1,5 @@
 import { lazy, Suspense, useState } from 'react';
 import { certifications } from '../constants/index.js';
-
 import Button from '../components/Button.jsx';
 import TechStackFlow from '../components/TechStackFlow.jsx';
 import AvatarSwitcher from '../components/AvatarSwitcher.jsx';
